@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マイクラ・ビギナーズ・ハブ | 安心安全な攻略サイト</title>
+    <!-- 外部ライブラリの読み込み -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Press+Start+2P&display=swap');
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f0f4f0;
+            overflow-x: hidden;
+        }
+
+        .pixel-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        /* 壮大なマイクラ風背景 */
+        .hero-bg {
+            background: linear-gradient(to bottom, #87CEEB 0%, #E0F6FF 70%, #4a912e 70%, #3c8527 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-overlay {
+            background-image: radial-gradient(#ffffff 2px, transparent 2px);
+            background-size: 40px 40px;
+            opacity: 0.1;
+            position: absolute;
+            inset: 0;
+        }
+
+        .sun {
+            position: absolute;
+            top: 15%;
+            right: 15%;
+            width: 80px;
+            height: 80px;
+            background: #FFD700;
+            box-shadow: 0 0 40px #FFD700;
+            border-radius: 4px;
+        }
+
+        /* 雲のアニメーション */
+        .cloud {
+            position: absolute;
+            background: white;
+            width: 120px;
+            height: 40px;
+            border-radius: 4px;
+            opacity: 0.8;
+            animation: moveCloud linear infinite;
+        }
+        @keyframes moveCloud {
+            from { left: -150px; }
+            to { left: 100%; }
+        }
+
+        /* マイクラ風ボタン */
+        .minecraft-btn {
+            background-color: #3c8527;
+            border-bottom: 6px solid #1a3e11;
+            box-shadow: 0 4px 0 #1a3e11;
+            transition: all 0.1s;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+            color: white;
+        }
+
+        .minecraft-btn:hover:not(:disabled) {
+            background-color: #4da333;
+            transform: translateY(-2px);
+        }
+
+        .minecraft-btn:active:not(:disabled) {
+            transform: translateY(4px);
+            border-bottom-width: 2px;
+            box-shadow: 0 0px 0 #1a3e11;
+        }
+
+        .minecraft-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #3c8527;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- ナビゲーション -->
+    <nav class="bg-[#2e2e2e]/95 backdrop-blur text-white p-4 sticky top-0 z-50 shadow-lg border-b-4 border-[#1a1a1a]">
+        <div class="container mx-auto flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-2 cursor-pointer" onclick="switchTab('guide')">
+                <i class="fas fa-cube text-green-500 text-2xl"></i>
+                <span class="text-xl font-bold tracking-wider pixel-font text-xs md:text-sm">MINECRAFT HUB</span>
+            </div>
+            <div class="space-x-4 flex items-center mt-2 md:mt-0">
+                <button onclick="switchTab('guide')" class="hover:text-green-400 font-bold text-sm md:text-base">ガイド</button>
+                <button onclick="switchTab('community')" class="hover:text-green-400 font-bold text-sm md:text-base">コミュニティ</button>
+                <button onclick="switchTab('parent')" class="bg-red-600 px-3 py-1 rounded hover:bg-red-700 text-xs font-bold shadow-md">
+                    <i class="fas fa-shield-alt mr-1"></i>保護者
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ヒーローセクション -->
+    <header id="hero-area" class="hero-bg h-[500px] flex items-center justify-center text-center relative">
+        <div class="hero-overlay"></div>
+        <div class="sun"></div>
+        <div class="cloud" style="top: 20%; animation-duration: 60s;"></div>
+        <div class="cloud" style="top: 45%; animation-duration: 45s; animation-delay: -10s;"></div>
+        <div class="cloud" style="top: 15%; animation-duration: 80s; animation-delay: -20s;"></div>
+
+        <div class="relative z-10 px-4 text-white">
+            <h1 class="text-4xl md:text-6xl font-black mb-6 drop-shadow-[0_5px_5px_rgba(0,0,0,0.5)]">
+                無限の世界が、<br class="md:hidden">君を待っている。
+            </h1>
+            <p class="text-lg md:text-xl mb-8 font-bold drop-shadow-md text-white">
+                初心者から上級者まで、すべてのクラフターのためのコミュニティ
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <button onclick="switchTab('guide')" class="minecraft-btn px-8 py-4 rounded text-xl font-bold">
+                    冒険を始める
+                </button>
+                <button onclick="switchTab('community')" class="bg-white/20 backdrop-blur border-2 border-white px-8 py-4 rounded text-xl font-bold hover:bg-white/30 transition-all text-white">
+                    仲間に会う
+                </button>
+            </div>
+        </div>
+        <div class="absolute bottom-0 w-full h-8 bg-[#1a3e11]/20"></div>
+    </header>
+
+    <main class="container mx-auto mt-12 px-4 pb-20">
+        <!-- 1. ガイドセクション -->
+        <section id="guide-section" class="tab-content">
+            <div class="flex items-center space-x-4 mb-8">
+                <div class="w-2 h-10 bg-green-600 rounded-full"></div>
+                <h2 class="text-3xl font-bold">サバイバル攻略ガイド</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="guide-card bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 transition-all">
+                    <div class="h-48 bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center relative text-white">
+                        <i class="fas fa-tree text-7xl text-white/50 absolute"></i>
+                        <div class="z-10 text-center text-white">
+                            <i class="fas fa-fist-raised text-5xl mb-2"></i>
+                            <div class="font-bold">生存の基本</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-green-600 px-2 py-1 bg-green-50 rounded">STEP 01</span>
+                        <h3 class="text-xl font-bold mt-2">木を伐採しよう</h3>
+                        <p class="text-gray-600 mt-3 text-sm leading-relaxed">まずは素手で木を叩いて「原木」を手に入れましょう。作業台を作り、木のピッケルを作成するのが最初の目標です。</p>
+                    </div>
+                </div>
+                <div class="guide-card bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 transition-all">
+                    <div class="h-48 bg-gradient-to-br from-gray-400 to-gray-600 flex items-center justify-center relative text-white">
+                        <i class="fas fa-mountain text-7xl text-white/50 absolute"></i>
+                        <div class="z-10 text-center text-white">
+                            <i class="fas fa-pickaxe text-5xl mb-2"></i>
+                            <div class="font-bold">採掘の基礎</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-blue-600 px-2 py-1 bg-blue-50 rounded">STEP 02</span>
+                        <h3 class="text-xl font-bold mt-2">石の道具を作る</h3>
+                        <p class="text-gray-600 mt-3 text-sm leading-relaxed">地面を掘り、石を手に入れましょう。石の道具は木よりも壊れにくく、鉄鉱石を掘るために必要不可欠です。</p>
+                    </div>
+                </div>
+                <div class="guide-card bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 transition-all">
+                    <div class="h-48 bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center relative text-white">
+                        <i class="fas fa-ghost text-7xl text-white/50 absolute"></i>
+                        <div class="z-10 text-center text-white">
+                            <i class="fas fa-home text-5xl mb-2"></i>
+                            <div class="font-bold">安全の確保</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-orange-600 px-2 py-1 bg-orange-50 rounded">STEP 03</span>
+                        <h3 class="text-xl font-bold mt-2">夜の敵から身を守る</h3>
+                        <p class="text-gray-600 mt-3 text-sm leading-relaxed">夜になるとゾンビやクリーパーが現れます。松明で明るくするか、土で囲った仮の家を作って身を守りましょう。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. コミュニティセクション -->
+        <section id="community-section" class="tab-content hidden">
+            <div class="flex items-center space-x-4 mb-8">
+                <div class="w-2 h-10 bg-blue-600 rounded-full"></div>
+                <h2 class="text-3xl font-bold">掲示板・質問コーナー</h2>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/3">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm mb-6 border border-gray-100 sticky top-24">
+                        <h2 class="text-xl font-bold mb-4 flex items-center text-green-700">
+                            <i class="fas fa-pen-nib mr-2"></i>新しい投稿
+                        </h2>
+                        <input id="post-title" type="text" placeholder="タイトル..." class="w-full border p-3 rounded-lg mb-3 focus:ring-2 focus:ring-green-500 outline-none">
+                        <textarea id="post-content" rows="4" placeholder="内容..." class="w-full border p-3 rounded-lg mb-3 focus:ring-2 focus:ring-green-500 outline-none"></textarea>
+                        <select id="post-category" class="w-full border p-3 rounded-lg mb-4 bg-gray-50">
+                            <option value="question">❓ 質問</option>
+                            <option value="showcase">🏗️ 作品公開</option>
+                            <option value="chat">💬 雑談</option>
+                        </select>
+                        <button id="submit-btn" onclick="addPost()" class="w-full minecraft-btn py-3 rounded-lg font-bold text-lg">
+                            投稿する
+                        </button>
+                    </div>
+                </div>
+                <div class="md:w-2/3 space-y-4" id="posts-container">
+                    <div class="flex justify-center p-20"><div class="loading-spinner"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 保護者セクション -->
+        <section id="parent-section" class="tab-content hidden">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-red-100">
+                    <div class="bg-red-600 text-white p-8 text-center">
+                        <h2 class="text-3xl font-bold flex items-center justify-center">
+                            <i class="fas fa-user-shield mr-4"></i> 保護者用設定
+                        </h2>
+                    </div>
+                    <div class="p-8 space-y-8">
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                            <div>
+                                <h3 class="font-bold">チャットフィルター</h3>
+                                <p class="text-xs text-gray-500">不適切な言葉を制限します。</p>
+                            </div>
+                            <input type="checkbox" checked id="filter-toggle" class="w-6 h-6">
+                        </div>
+                        <button onclick="alert('設定を保存しました')" class="bg-red-600 text-white px-8 py-3 rounded-xl hover:bg-red-700 font-bold shadow-lg w-full">設定を保存</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#1a1a1a] text-gray-500 p-12 text-center mt-20">
+        <p class="font-bold mb-2">MINECRAFT HUB - ファンポータル</p>
+        <p class="text-xs max-w-xl mx-auto">当サイトは非公式サイトです。Mojang/Microsoftとは関係ありません。</p>
+    </footer>
+
+    <div id="toast" class="fixed bottom-10 right-10 bg-gray-900 text-white px-8 py-4 rounded-2xl opacity-0 transition-all duration-500 z-[100] font-bold"></div>
+
+    <script>
+        // --- 外部公開用：Firebaseエラーを回避する処理 ---
+        let posts = [
+            { id: 1, title: '最初の挨拶', content: 'マイクラ初心者です！よろしくお願いします。', category: 'chat', userId: 'admin', createdAt: { seconds: Date.now()/1000 } }
+        ];
+
+        // 表示の切り替え
+        window.switchTab = (tabId) => {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId + '-section').classList.remove('hidden');
+            const hero = document.getElementById('hero-area');
+            if (tabId === 'guide') hero.classList.remove('hidden');
+            else hero.classList.add('hidden');
+            if(tabId === 'community') renderPosts();
+        };
+
+        // 投稿の描画
+        window.renderPosts = () => {
+            const container = document.getElementById('posts-container');
+            if(!container) return;
+            container.innerHTML = '';
+            
+            posts.slice().reverse().forEach(post => {
+                const postHtml = `
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border-l-8 border-green-500 mb-4">
+                        <h3 class="font-bold text-xl">${post.title}</h3>
+                        <p class="text-gray-600 mt-2">${post.content}</p>
+                        <div class="mt-4 text-xs text-gray-400 flex justify-between">
+                            <span>ID: ${post.userId}</span>
+                            <span>${new Date(post.createdAt.seconds * 1000).toLocaleString()}</span>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', postHtml);
+            });
+        };
+
+        // 投稿の追加
+        window.addPost = () => {
+            const title = document.getElementById('post-title').value;
+            const content = document.getElementById('post-content').value;
+            if(!title || !content) return showToast("入力してね！");
+
+            const newPost = {
+                id: Date.now(),
+                title: title,
+                content: content,
+                category: document.getElementById('post-category').value,
+                userId: 'Guest',
+                createdAt: { seconds: Date.now()/1000 }
+            };
+
+            posts.push(newPost);
+            renderPosts();
+            document.getElementById('post-title').value = '';
+            document.getElementById('post-content').value = '';
+            showToast("投稿しました！（ブラウザを閉じると消えます）");
+        };
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.classList.replace('opacity-0', 'opacity-100');
+            setTimeout(() => toast.classList.replace('opacity-100', 'opacity-0'), 3000);
+        }
+
+        // 初期表示
+        window.onload = () => {
+            renderPosts();
+        };
+    </script>
+</body>
+</html>
